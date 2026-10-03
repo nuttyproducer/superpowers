@@ -2,9 +2,12 @@
 
 Superpowers is a complete software development methodology for your coding agents, built on top of a set of composable skills and some initial instructions that make sure your agent uses them.
 
+> **This is a personal fork** of [obra/superpowers](https://github.com/obra/superpowers), tuned for **token efficiency**. It bakes concise-output rules directly into the skills so your agent produces less filler and more signal — no per-session re-prompting. See [Token Efficiency Changes](#token-efficiency-changes).
+
 ## Table of Contents
 
 - [How it works](#how-it-works)
+- [Token Efficiency Changes](#token-efficiency-changes)
 - [Commercial Services](#commercial-services)
 - [Getting Started](#installation)
   - [Claude Code](#claude-code)
@@ -45,6 +48,29 @@ Next up, once you say "go", it launches a *subagent-driven-development* process,
 
 There's a bunch more to it, but that's the core of the system. And because the skills trigger automatically, you don't need to do anything special. Your coding agent just has Superpowers.
 
+## Token Efficiency Changes
+
+This fork modifies the core skills to cut output tokens without reducing quality. The rules are baked into the skills themselves, so they apply every session with no re-prompting.
+
+### Global Output Discipline (`using-superpowers`)
+
+The always-loaded bootstrap now carries an **Output Discipline** block that applies to every session:
+
+- Lead with the conclusion; never narrate how you reached it.
+- No "I decided to use X because…", "Another possibility would have been…", or "I also considered…" — state the choice, and give one reason only if asked.
+- No teaching or justifying routine decisions — produce the output, not a lesson.
+- Chat narration is capped at ~300 words per reply. **Written deliverables (specs, plans, design docs, code) are exempt** — they stay as complete as their process requires; their completeness is the quality.
+- Flag a spec contradiction once with the conflict and your proposed resolution, then proceed.
+
+### Brainstorming
+
+- Removed the redundant `dot` flowchart — the three-path logic already lives in the prose, checklist, and red-flags table. The "terminal states are path-bound" rule is preserved.
+- Added a **delta-only** iteration rule: state only what changed or the next question — never re-summarize the full design or brief.
+
+### Writing Plans
+
+- Added a **one-line handoff** rule: hand off in one line (link + review question); do not recap the plan's contents in chat — the file is the source of truth.
+
 ## Commercial Services
 
 If you're using Superpowers in enterprise and could benefit from commercial support, additional tooling, or managed spending, please don't hesitate to drop us a line at sales@primeradiant.com.
@@ -55,9 +81,23 @@ Installation differs by harness. If you use more than one, install Superpowers s
 
 ### Claude Code
 
-Superpowers is available via the [official Claude plugin marketplace](https://claude.com/plugins/superpowers)
+#### This Fork (token-tuned)
 
-#### Official Marketplace
+- Register this fork as a marketplace:
+
+  ```bash
+  claude plugin marketplace add https://github.com/nuttyproducer/superpowers
+  ```
+
+- Install the plugin from this fork:
+
+  ```bash
+  claude plugin install superpowers@superpowers-dev
+  ```
+
+#### Official Marketplace (upstream)
+
+Superpowers is available via the [official Claude plugin marketplace](https://claude.com/plugins/superpowers)
 
 - Install the plugin from Anthropic's official marketplace:
 
@@ -389,6 +429,13 @@ See `skills/writing-skills/SKILL.md` for the complete guide.
 ## Updating
 
 Superpowers updates are somewhat coding-agent dependent, but are often automatic.
+
+**This fork:** edit skills in your local checkout, then commit, push, and pull the changes into Claude Code:
+
+```bash
+git add -A && git commit -m "..." && git push origin main
+claude plugin update superpowers
+```
 
 ## License
 
