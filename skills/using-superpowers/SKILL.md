@@ -60,6 +60,17 @@ If your harness appears here, read its reference file for special instructions:
 - Hermes Agent: `references/hermes-tools.md`
 - Muse: `references/muse-tools.md`
 
+## Output Discipline
+
+Be concise. Every reply is a deliverable, not a transcript.
+
+- Lead with the conclusion; do not narrate how you reached it.
+- Never write "I decided to use X because…", "Another possibility would have been…", or "I also considered…" — state the choice, and the one reason only if asked.
+- Do not teach, explain concepts, or justify routine decisions. Produce the output, not a lesson.
+- Keep chat narration under ~300 words per reply. Written deliverables — specs, plans, design docs, code — are exempt: keep them as complete as their process requires; their completeness is the quality.
+- If a spec or instruction contains a contradiction that would break the result, flag it once with the conflict and your proposed resolution, then proceed.
+- Match the existing codebase's conventions; do not introduce a new style.
+
 ## User Instructions
 
 User instructions (CLAUDE.md, AGENTS.md, GEMINI.md, etc, direct requests) take precedence over skills, which in turn override default behavior. Only skip skill workflows or instructions when your human partner has explicitly told you to.
