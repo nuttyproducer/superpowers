@@ -52,6 +52,8 @@ There's a bunch more to it, but that's the core of the system. And because the s
 
 This fork modifies the core skills to cut output tokens without reducing quality. The rules are baked into the skills themselves, so they apply every session with no re-prompting.
 
+Measured impact is in **[BENCHMARK.md](BENCHMARK.md)**: ~2/3 fewer output tokens per planning reply, from chat narration only — written deliverables (specs, plans, design docs) are exempt.
+
 ### Global Output Discipline (`using-superpowers`)
 
 The always-loaded bootstrap now carries an **Output Discipline** block that applies to every session:
